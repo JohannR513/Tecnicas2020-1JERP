@@ -2,10 +2,13 @@
 #define FILAS 12
 #define COLUMNAS 5
 
+/* Falta la función recursiva. El uso de enums esta incompleto. Falta el control de la cantidad
+maxima de personas */
+
 typedef struct persona{
    char nombre[ 15 ];
    int diaNacimiento, mesNacimiento, anhoNacimiento; 
-
+   // Luisa: no estas usando el mesNacimiento que esta en el struct
 } persona;
 
 int menu( ){
@@ -26,7 +29,8 @@ int main ( ){
 	int mesNacimiento, i, j, opcion, col = 0; 
 	char nombre[ 15 ];
   persona temp, personas [ FILAS ][ COLUMNAS ];
-    
+  // NO estas usando ni la i ni la J El enum queda mejor declarado al inicio dl programa
+  // Tampoco usas nombre ni temp
   typedef enum meses{
 	   ENERO = 1,
 	   FEBRERO = 2,
@@ -43,7 +47,7 @@ int main ( ){
 } mesesitos;
 	opcion = menu;
 	switch ( opcion ){
-		case 1 :fflush ( stdin );
+		case 1 :fflush ( stdin );   // Aqui no estas usando realmente los enums. 
             printf( "Ingresa el mes de nacimiento:\n" ); scanf("%d",&mesNacimiento);
             if ( mesNacimiento == 1 ){
               printf( "Ingresa el dia de nacimiento:\n" ); scanf("%d",&personas[ ENERO ][ col++ ].diaNacimiento); 
@@ -52,7 +56,7 @@ int main ( ){
               printf( "[Nombre: %s,Año: %d, Dia: %d] fue agregado exitosamente\n", 
               personas[ ENERO ][ col ].nombre,personas[ ENERO ][ col -1].anhoNacimiento, personas[ ENERO ][ 0 ].diaNacimiento );
             } 
-            if ( mesNacimiento == 2 ){
+            if ( mesNacimiento == FEBRERO ){
               printf( "Ingresa el dia de nacimiento:\n" ); scanf( "%d",&personas[ FEBRERO ][ col++ ].diaNacimiento ); 
               printf( "Ingresa el dia de nacimiento:\n" ); scanf( "%d", &personas[ FEBRERO ][ col++ ].anhoNacimiento);
               printf( "Ingresa el nombre:\n" ); scanf("%s", personas[ FEBRERO ][ col ].nombre);
