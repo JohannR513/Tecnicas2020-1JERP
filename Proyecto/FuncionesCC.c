@@ -1,4 +1,5 @@
 #include "FuncionesCC.h"
+#include <string.h>
 
 /* Funcion de ejemplo que imprimiria la informacion de un local */
 //void mostrarLocal(local_t ** centroComercial, int numPiso,
@@ -41,5 +42,79 @@
          printf( "%s\nPiso %d, Local %d\nID: %d", matrizMall[ i ][ j ].nombreLocal, matrizMall[ i ][ j ].pisoLocal, matrizMall[ i ] [j ].numLocalxPiso, matrizMall[ i ][ j ].idLocal);
      }
    }
+  }
  }
+
+ void buscarPorNombre ( local_t ** matrizMall, int numPiso, int numLocal ){
+   int i, j;
+   char search[ 35 ];
+   printf( "Ingresa el nombre del local que estas buscando:\n" );
+   scanf( "%s", search );
+   for( i = 0; i < numPiso; i++ ){
+     for ( j = 0; i < numLocal; j++ ){
+       if( !strcmp ( matrizMall[ i ][ j ].nombreLocal, search ) ){
+        printf("Este local esta ubicado en el piso %d, local %d, codigo %d\n", matrizMall[ i ][ j ].pisoLocal, matrizMall[ i ][ j ].numLocalxPiso, matrizMall[ i ][ j ].idLocal );
+        return;
+
+       }
+     }
+   }
+   printf( "No existe un local con ese nombre :c" );
+   return;
  }
+ void buscarPorId( local_t ** matrizMall, int numPiso, int numLocal ){
+   int i, j, search;
+   printf( "Ingresa el nombre del local que estas buscando:\n" );
+   scanf( "%d", &search );
+   for( i = 0; i < numPiso; i++ ){
+     for( j = 0; j < numPiso; j++ ){
+       if( matrizMall[ i ][ j ].idLocal == search ){
+         printf("Nombre: %s, esta ubicado en el piso %d, local %d\n", matrizMall[ i ][ j ].nombreLocal, matrizMall[ i ][ j ].pisoLocal, matrizMall[ i ][ j ].numLocalxPiso );
+       }
+     }
+   }
+   printf( "No existe un local con ese codigo :c" );
+   return;
+ }
+
+ void cambiarNombreLocal( local_t ** matrizMall, int numPiso, int numLocal ){
+   int i, j;
+   char newName[ 35 ];
+   printf( "Ingresa el nombre del local que deseas cambiarle el nombre:\n" );
+   scanf( "%s", newName );
+   for( i = 0; i < numPiso; i++ ){
+     for( j = 0; j < numPiso; j++ ){
+       if( !strcmp ( matrizMall[ i ][ j ].nombreLocal, newName ) ){
+          printf( "Escribe el nuevo nombre del local" );
+          scanf( "%s", matrizMall[ i ][ j ].nombreLocal );
+          printf( "El nombre ha sido cambiado con exito" );
+          return;
+       }
+     }
+   }
+  printf( "No hemos encontrado el local con el nombre que proporcionaste :C" );
+          return;
+ }
+
+ void eliminarLocal( local_t ** matrizMall, int numPiso, int numLocal ){
+   int pis, loc;
+   printf( "Ingresa el piso donde esta ubicado el local:\n" );
+   scanf( "%d", &pis );
+   printf( "Ingresa la ubicacion del local:\n" );
+   scanf( "%d", &loc );
+  
+  matrizMall[ pis ][ loc ].status = DISPONIBLE;
+  printf( "El local %s ha sido borrado exitosamente :)", matrizMall[ pis ][ loc ].nombreLocal);
+  return;
+ }
+void localesOcupados( local_t ** matrizMall, int numPiso, int numLocal ){
+  int ocupados = 0, i, j;
+  for( i = 0; i < numPiso; i++ ){
+    for( j = 0; j < numPiso; j++ ){
+      if ( matrizMall [ i ][ j ].status == OCUPADO ){
+        ocupados += 1;
+      }
+    }
+  }
+  printf("El numero de locales ocupados es %d", ocupados);
+  }
