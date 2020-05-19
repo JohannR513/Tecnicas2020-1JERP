@@ -13,6 +13,7 @@ int menu(){
     printf( "4. Buscar local por identificador\n" );
     printf( "5. Cambiar nombre del local\n" );
     printf( "6. Eliminar local\n" );
+    printf( "7. Consultar la candidad de locales ocupados\n" );
     printf( "0. Salir\n" );
     scanf( "%d", &opc );
 
@@ -20,7 +21,7 @@ int menu(){
 }
 
 int main(){
-	  int **matrizMall, i, j, numPiso, numLocal;
+      int **matrizMall, i, j, numPiso, numLocal;
     printf( "Ingrese la cantidad de pisos del centro comercial: \n" );
     scanf( "%d", &numPiso );
     printf( "Ingrese la cantidad de locales del centro comercial: \n" );
@@ -41,38 +42,8 @@ int main(){
       }
       printf( "\n" );
     }
-	return 0;
+    return 0;
 
     int opc;
 
-    do{
-        opc = menu();
-        switch( opc ){
-                case 1: ingresarLocal( matrizMall, numPiso, numLocal );
-                        break;
-
-                case 2: listarLocales( matrizMall, numPiso, numLocal );
-                        break;
-
-                case 3: buscarLocalNombre( matrizMall, numPiso, numLocal );
-                        break;
-                
-                case 4: buscarLocalxID( matrizMall, numPiso, numLocal );
-                        break;
-                
-                case 5: cambiarNombre( matrizMall, numPiso, numLocal );
-                        break;
-
-                case 6: eliminar( matrizMall, numPiso, numLocal );
-                        break;
-
-                case 0: break;
-
-                default: printf( "Por favor ingresa un opcion valida" );
-
-        }
-    }
-    while ( opc != 0 );
-
-    return 0;
 }
