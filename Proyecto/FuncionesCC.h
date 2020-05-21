@@ -13,7 +13,7 @@ typedef struct Local{
 	int idLocal; // Calculado automaticamente por su programa
 	int pisoLocal;
 	int numLocalxPiso;//Columnas
-  status_l status;
+        status_l status;
 	// Completelo con lo que quiera
 } local_t;
 
