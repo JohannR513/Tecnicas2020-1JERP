@@ -4,6 +4,7 @@
 int menu(){
     
     int opc;
+
     printf( "MENU Centro Comercial:\n");
     printf( "BIENVENIDO :)\n") ;
     printf( "=====================\n" );
@@ -14,36 +15,66 @@ int menu(){
     printf( "5. Cambiar nombre del local\n" );
     printf( "6. Eliminar local\n" );
     printf( "7. Consultar la candidad de locales ocupados\n" );
-    printf( "0. Salir\n" );
+    printf( "8. Consultar la candidad de locales disponibles\n" );
+    printf( "9. Salir\n" );
     scanf( "%d", &opc );
 
     return opc;
 }
 
 int main(){
-      int **matrizMall, i, j, numPiso, numLocal;
+    int numPiso, numLocal, i, j ;
     printf( "Ingrese la cantidad de pisos del centro comercial: \n" );
     scanf( "%d", &numPiso );
     printf( "Ingrese la cantidad de locales del centro comercial: \n" );
     scanf( "%d", &numLocal );
-
-    matrizMall = ( int** )calloc( numPiso, sizeof( int * ) );
-    for ( i = 0; i < numPiso; i++){
-      matrizMall [ i ] = ( int * )calloc( numLocal, sizeof( int ) );
-    }
+    local_t** matrizMall = crearCC ( numPiso, numLocal );
+    
     for( i = 0; i < numPiso; i++ ){
-      for( j = 0; j < numLocal; j++ ){
-        matrizMall[ i ][ j ] = i + j;
-      }
-    }
-     for( i = 0; i < numPiso; i++ ){
-      for( j = 0; j < numLocal; j++ ){
-        printf("%d",matrizMall[ i ][ j ] );
+      for( j = 0; j < numPiso; j++ ){
+        printf("%d", matrizMall[ i ][ j ].status  );
       }
       printf( "\n" );
     }
-    return 0;
+int opc;
+  do
+    {
+        opc = menu();
+        switch (opc)
+        {
+            case 1:
+                ingresarLocal(matrizMall, numPiso, numLocal);
+                break;
 
-    int opc;
+            case 2: 
+                listarLocales( matrizMall,  numPiso,  numLocal);
+                break;
+            
+            case 3: buscarPorNombre( matrizMall,  numPiso,  numLocal);
+              break;
+            
+            case 4: buscarPorId( matrizMall,  numPiso,  numLocal);
+              break;
 
+            case 5: cambiarNombreLocal( matrizMall,  numPiso,  numLocal);
+             break;
+            
+            case 6: eliminarLocal( matrizMall, numPiso,  numLocal );
+            break;
+            
+            case 7: localesOcupados( matrizMall,  numPiso,  numLocal);
+              break;
+
+            case 8: localesLibres( matrizMall,  numPiso,  numLocal);
+              break;
+            
+            case 9:
+                break;
+
+            default:
+                printf("Opcion invalida\n");
+                break;
+        }
+     } while (opc != 9);
+   return 0;
 }
