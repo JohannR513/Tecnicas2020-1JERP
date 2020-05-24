@@ -22,6 +22,9 @@ typedef struct Local{
 	int pisoLocal;
 	int numLocalxPiso;//Columnas
   int numEmpleados;
+  int ventasSemanales;
+  int elementosInventario;
+  int empleadosEnTurno;
   status_l status;
   category_l category;
 	// Completelo con lo que quiera
@@ -41,4 +44,7 @@ void eliminarLocal( local_t ** matrizMall, int numPiso, int numLocal );
 void localesOcupados( local_t ** matrizMall, int numPiso, int numLocal );
 void localesLibres( local_t ** matrizMall, int numPiso, int numLocal );
 void ordenarPorNumEMpleados( local_t ** matrizMall, int numPiso, int numLocal );
+void ordenarPorVentas( local_t ** matrizMall, int      numPiso, int numLocal );
+void ordenarPorInventario( local_t ** matrizMall, int numPiso, int numLocal );
+void ordenarPorEmpleadosTurno( local_t ** matrizMall, int numPiso, int numLocal );
 #endif /* FUNCIONESCC_H_ */
