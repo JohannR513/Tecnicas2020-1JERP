@@ -16,8 +16,11 @@ int menu(){
     printf( "6. Eliminar local\n" );
     printf( "7. Consultar la candidad de locales ocupados\n" );
     printf( "8. Consultar la candidad de locales disponibles\n" );
-    printf( "9. Ordenar\n" );
-    printf( "10. Salir\n" );
+    printf( "9. Ordenar por empleados\n" );
+    printf( "10. Ordenar por ventas semanales\n" );
+    printf( "11. Ordenar por inventario\n" );
+    printf( "12. Ordenar por empleados en turno\n" );
+    printf( "0. Salir\n");
     scanf( "%d", &opc );
 
     return opc;
@@ -72,13 +75,22 @@ int opc;
             case 9: ordenarPorNumEMpleados( matrizMall,  numPiso,  numLocal );
                 break;
             
-            case 10:  
+            case 10: ordenarPorVentas( matrizMall, numPiso,  numLocal );
+                break;
+           
+            case 11: ordenarPorInventario( matrizMall, numPiso,  numLocal );
+                break;
+            
+            case 12: ordenarPorEmpleadosTurno( matrizMall, numPiso, numLocal );
+                break;
+
+            case 0:  
                 break;
             
             default:
-                printf("Opcion invalida\n");
+                printf( "Opcion invalida\n" );
                 break;
         }
-     } while (opc != 10);
+     } while ( opc != 0 );
    return 0;
 }
