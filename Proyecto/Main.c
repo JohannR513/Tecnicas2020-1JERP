@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 int menu(){
-    
+    //Menu con el cual el usuario podra interactuar con el programa
     int opc;
 
     printf( "MENU Centro Comercial:\n");
@@ -28,12 +28,16 @@ int menu(){
 
 int main(){
     int numPiso, numLocal, i, j ;
-    printf( "Ingrese la cantidad de pisos del centro comercial: \n" );
+    //Aqui es donde se crea la matriz que representa al centro comercial
+    printf( "Ingrese la cantidad de pisos del centro comercial: \n" );//Pisos del centro comercial
     scanf( "%d", &numPiso );
-    printf( "Ingrese la cantidad de locales del centro comercial: \n" );
+    printf( "Ingrese la cantidad de locales del centro comercial: \n" );//Locales que tendra cada piso
     scanf( "%d", &numLocal );
     local_t** matrizMall = crearCC ( numPiso, numLocal );
     
+    /*Este ciclo imprime la matriz, esto lo hice para asegurarme que la matriz se 
+     *estuviera creando con las dimensiones correctas
+     */
     for( i = 0; i < numPiso; i++ ){
       for( j = 0; j < numLocal; j++ ){
         printf("%d", matrizMall[ i ][ j ].status );
@@ -44,14 +48,13 @@ int opc;
   do
     {
         opc = menu();
-        switch ( opc )
-        {
-            case 1:
-                ingresarLocal( matrizMall, numPiso, numLocal );
+        switch ( opc ){ /*Aqui es donde se invocan las funciones para hacer que el programa
+                        * se ejecute
+                        */
+            case 1: ingresarLocal( matrizMall, numPiso, numLocal );
                 break;
 
-            case 2: 
-                listarLocales( matrizMall,  numPiso,  numLocal );
+            case 2: listarLocales( matrizMall,  numPiso,  numLocal );
                 break;
             
             case 3: buscarPorNombre( matrizMall,  numPiso,  numLocal );
