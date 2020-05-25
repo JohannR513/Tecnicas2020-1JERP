@@ -20,6 +20,8 @@ int menu(){
     printf( "10. Ordenar por ventas semanales\n" );
     printf( "11. Ordenar por inventario\n" );
     printf( "12. Ordenar por empleados en turno\n" );
+    printf( "13. Guardar CC\n" );
+    printf( "14. Cargar CC\n" );
     printf( "0. Salir\n");
     scanf( "%d", &opc );
 
@@ -27,13 +29,16 @@ int menu(){
 }
 
 int main(){
-    int numPiso, numLocal, i, j ;
+    
+    int numPiso, numLocal, i, j;
+    
     //Aqui es donde se crea la matriz que representa al centro comercial
     printf( "Ingrese la cantidad de pisos del centro comercial: \n" );//Pisos del centro comercial
     scanf( "%d", &numPiso );
     printf( "Ingrese la cantidad de locales del centro comercial: \n" );//Locales que tendra cada piso
     scanf( "%d", &numLocal );
     local_t** matrizMall = crearCC ( numPiso, numLocal );
+    
     
     /*Este ciclo imprime la matriz, esto lo hice para asegurarme que la matriz se 
      *estuviera creando con las dimensiones correctas
@@ -87,6 +92,12 @@ int opc;
             case 12: ordenarPorEmpleadosTurno( matrizMall, numPiso, numLocal );
                 break;
 
+            case 13: guardarCC( matrizMall, numPiso, numLocal, "CentroComercial.dat" );
+                break;
+           //Esta la intente hacer pero no funciona :c
+            case 14: cargar(matrizMall, numPiso, numLocal, "CentroComercial.dat");               
+                break;
+                    
             case 0:  
                 break;
             
