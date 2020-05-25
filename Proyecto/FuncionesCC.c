@@ -35,7 +35,8 @@ local_t** crearCC( int numPiso, int numLocal ){
 /*En esta funcion ingresaremos un nuevo local a la matriz
 */
 void ingresarLocal( local_t ** matrizMall, int numPiso, int numLocal ){
-    int piso, local, nEmpleados, nCat, nInventario, nEmTurno;
+    int piso, local, nEmpleados, nCat, nInventario, nEmTurno, nVentaSemanal;
+    char category[ 35 ];
     do{
         printf( "======================================\n" );
         printf( "Si despues de digitar los datos te aparece nuevamente este menu es porque la posicion que elegiste no esta disponible :c\n" );
@@ -52,8 +53,7 @@ void ingresarLocal( local_t ** matrizMall, int numPiso, int numLocal ){
      
     //Si los datos del usuario fueron validos entonces empezaremos a preguntarle los datos de su local                                                                                                               
     printf( "======================================\n" );
-    printf( "Cual es el nombre del local?\n" );                   
-    scanf( "%s", matrizMall[ piso ][ local ].nombreLocal );
+    printf( "Cual es el nombre del local?\n" );             scanf( "%s", matrizMall[ piso ][ local ].nombreLocal );
     printf( "Cuantos empleados tiene el local?\n" );
     scanf( "%d", &nEmpleados );
     printf( "Cuantos elementos hay en el inventario?\n" );
@@ -62,6 +62,9 @@ void ingresarLocal( local_t ** matrizMall, int numPiso, int numLocal ){
     scanf( "%d", &nEmTurno );
     printf( "Que categoria tiene el local?\n1.Hogar\n2.Comida\n3.Tecnologia\n4.Vestuario\n" );
     scanf( "%d", &nCat );
+    printf( "Cual es la cantidad de ventas esta semana? \n" );
+    scanf( "%d", &nVentaSemanal );
+    
     if( nCat == 1 ){
     matrizMall[ piso ][ local ].category = HOGAR;
     }
@@ -79,12 +82,37 @@ void ingresarLocal( local_t ** matrizMall, int numPiso, int numLocal ){
     matrizMall[ piso ][ local ].elementosInventario = nInventario;
     matrizMall[ piso ][ local ].status = OCUPADO;
     matrizMall[ piso ][ local ].idLocal = rand() % 10000;
-    matrizMall[ piso ][ local ].ventasSemanales = rand() % 200;
+    matrizMall[ piso ][ local ].ventasSemanales = nVentaSemanal;
     matrizMall[ piso ][ local ].pisoLocal = piso;
     matrizMall[ piso ][ local ].numLocalxPiso = local;
-    printf( "El local %s fue agregado exitosamente :)\n", matrizMall[ piso ][ local ].nombreLocal  );
+    printf( "El local %s fue agregado exitosamente :)\n", matrizMall[ piso ][ local ].nombreLocal );
     printf( "======================================\n" );
+  
+    FILE *fileNombres;//Aqui se crea un archivo de texto 
+                      //con los nombres de los locales
+    fileNombres = fopen( "Nombres.txt", "ab" );
+    fprintf( fileNombres, " %s  ", matrizMall[ piso ][ local ].nombreLocal );
+    fclose( fileNombres );    
+
+    FILE *fileEmpleados;//Aqui se crea un archivo de texto
+                        //con la cantidad de empleados por local
+    fileEmpleados = fopen( "Empleados.txt", "ab" );
+    fprintf( fileEmpleados, " %d  ", nEmpleados );
+    fclose( fileEmpleados );
     
+    FILE *fileVentas;//Aqui se crea un archivo de texto
+                    //con la cantidad de ventas semanales de cada local
+    fileVentas = fopen( "Ventas.txt", "ab" );
+    fprintf( fileVentas, " %d  ", nVentaSemanal );
+    fclose( fileVentas );
+       
+    FILE *fileInventario;//Aqui se crea un archivo de texto
+                        //con la cantidad de elementos en el inventario
+    fileInventario = fopen( "Inventario.txt", "ab" );
+    fprintf( fileInventario, " %d  ", nInventario );
+    fclose( fileInventario );
+     
+    return;
     }
   
 /*Aqui vamos a listar la informacion de todos los locales que estan ubicados
@@ -117,19 +145,18 @@ void listarLocales( local_t ** matrizMall, int numPiso, int numLocal ){
            printf( "Categoria: Vestuario\n" );
          }
          printf( "======================================\n" );
-     }
-   }
+      }
+    }
   }
- }
+}
 
 /*Aqui buscaremos la informacion de un local ingresando su nombre
 */
-local_t* buscarPorNombre( local_t **matrizMall, int numPiso, int numLocal ){
+void buscarPorNombre( local_t **matrizMall, int numPiso, int numLocal ){
    char search[35];
     printf( "Nombre del local: " );
     scanf( "%s", search );
-
-    
+ 
     int i, j;
     for ( i = 0; i < numPiso; i++ ){
         for ( j = 0; j < numLocal; j++ ){
@@ -155,12 +182,12 @@ local_t* buscarPorNombre( local_t **matrizMall, int numPiso, int numLocal ){
                   printf( "Categoria: Vestuario\n" );
                   }
                 printf( "======================================\n" );
-              return 0;
+              return;
             }
         }
     }
  printf( "No hemos encontrado el local con el nombre que proporcionaste :C\n" );// Si no fue encontrado retorna este mensaje
-    return 0;
+    return;
 }
 
 /*Con esta funcion al igual que la anterior buscaremos los datos de un local
@@ -193,7 +220,7 @@ local_t* buscarPorId( local_t ** matrizMall, int numPiso, int numLocal ){
        }
      }
    }
-
+   
    return NULL;//Si no fue encontrado la funcion no retornara nada
  }
 
@@ -229,15 +256,20 @@ void cambiarNombreLocal( local_t ** matrizMall, int numPiso, int numLocal ){
 */
 void eliminarLocal( local_t ** matrizMall, int numPiso, int numLocal ){
    int pis, loc;
+   do{
    printf( "======================================\n" );
    printf( "Ingresa el piso donde esta ubicado el local:\n" );
    scanf( "%d", &pis );//Aqui pide la ubicacion del local que quiere eliminar
    printf( "Ingresa la ubicacion del local:\n" );
    scanf( "%d", &loc );
-  pis--;// Se restan para que el programa los entienda como indices
-  loc--;
-  matrizMall[ pis ][ loc ].status = DISPONIBLE;//El programa cambiara el estado  de las coordenadas digitadas
-                                              //por el usuario, despues de esto cualquier otro local podra ocupar esta posicion 
+   }while( ( pis > numPiso -1) || ( loc > numLocal -1 ) );//Verifica que los datos ingresados
+                                                          //Esten en la matriz
+   pis--;// Se restan para que el programa los entienda como indices
+   loc--;
+   matrizMall[ pis ][ loc ].status = DISPONIBLE;
+   
+  /*El programa cambiara el estado  de las coordenadas digitadas por el usuario, despues este local podra ser ocupado por cualquier otro
+  */
   
   printf( "El local %s ha sido borrado exitosamente :\n", matrizMall[ pis ][ loc ].nombreLocal );
   printf( "======================================\n" );//Por ultimo te enseñara un mensaje indicando el nombre del local eliminado
@@ -370,8 +402,10 @@ void ordenarPorVentas( local_t ** matrizMall, int numPiso, int numLocal ){
    
    printf( "Ingrese el numero del piso para ver los locales:\n" );
    scanf( "%d",&search );
-   search -= 1 ;//indice para recorrer la matriz
-   for( i = 0; i < numPiso ; i++ ){
+   search -= 1 ;//indice para recorrer la matriz;//indice para recorrer la matriz
+   
+   for( i = 0; i < numPiso ; i++ ){//Con este recorrido asigno los valores de un piso a un
+   //nuevo arreglo el cual va a ser ordenado
     for( k = 0; k < numLocal; k ++ ){
       arr[ k + i ]= matrizMall [ search ][ i ].ventasSemanales;
      }
@@ -470,4 +504,52 @@ int n = numLocal, search, i, k;
     printf( "%d ",array[ i ] );
   }
   printf( "\n" );
+}
+
+/*Con esta funcion vamos a guardar la informacion de la matriz en 
+*un archivo .dat
+*/
+void guardarCC( local_t ** matrizMall, int numPiso, int numLocal, char* file ){
+  int i, j;
+  local_t localActual;//Esta variable se hace de tipo local_t para poder
+                      //almacenar todos los datos de un local dentro de ella
+  FILE *fileCC = fopen( file ,"wb" );
+
+  if ( fileCC == NULL ){
+      printf( "Error! al abrir el archivo" );
+
+      exit( 1 );
+   }
+   for(i = 0; i < numPiso; i++){
+      for(j = 0; j < numLocal; j++){
+        if( matrizMall[i][j].status == OCUPADO ){//Aqui valida que el local este ocupado                
+                                                //para poder almacenar sus datos en el archivo
+          localActual = matrizMall[ i ][ j ];
+          fwrite( &localActual, sizeof( local_t ), 1, fileCC ); //Aqui Escribe los datos detro del archivo
+          printf( "Guardado: %s\n", localActual.nombreLocal );
+      }
+    }    
+   }
+   fclose( fileCC ); 
+   printf( "Se ha guardado todo el CC\n" );  
+}
+
+ //Esta la intente hacer pero no funciona :c
+void cargar( local_t** matrizMall, int pisos, int numLoc, char* file ){
+  int i, j;
+  FILE *fileCC = fopen( file ,"rb" );
+  local_t localActual;
+    if ( fileCC == NULL ){
+       printf( "Error! al abrir el archivo" );
+
+       exit(1);
+   }printf( "Listo el pollo\n" );
+  while( fread ( &localActual, sizeof( local_t ), 1, fileCC ) == sizeof( local_t ) ){
+    fread( &localActual, sizeof( local_t ), 1, fileCC ); 
+      matrizMall[ localActual.pisoLocal ][ localActual.numLocalxPiso ] = localActual;
+      matrizMall[ i ][ j ] = localActual;
+    printf("%s", localActual.nombreLocal);
+  }
+  fclose( fileCC );       
+        
 }
