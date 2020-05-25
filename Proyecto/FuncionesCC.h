@@ -17,16 +17,16 @@ typedef enum status{
 } status_l;
 
 typedef struct Local{
-	char nombreLocal[ 35 ];
+	char nombreLocal[ 35 ];// Nombre del local 
 	int idLocal; // Calculado automaticamente por su programa
-	int pisoLocal;
+	int pisoLocal; // Piso donde esta ubicado el local
 	int numLocalxPiso;//Columnas
-  int numEmpleados;
-  int ventasSemanales;
-  int elementosInventario;
-  int empleadosEnTurno;
-  status_l status;
-  category_l category;
+  	int numEmpleados; // Cantidad de empleados que tiene el local
+  	int ventasSemanales;// Ventas que ha hecho el local en una semana
+  	int elementosInventario;//Candidad de elementos en el inventario del local
+  	int empleadosEnTurno;// Empleados que estan trabajando actualmente dentro del local
+  	status_l status;// Estado del local
+  	category_l category;// Categoria del local
 	// Completelo con lo que quiera
 } local_t;
 
