@@ -1,0 +1,78 @@
+Funcion crearCC: Reserva el espacion en memoria para poder crear la mtriz
+	-Entradas: Dimensiones proporcionadas por el usuario
+	-Salidas: Crea la matriz
+	-Conceptos usados: memoria dinamica
+
+Funcion ingresarLocal: Crea un nuevo local en un espacio de la matriz ingresado por el usuario
+	-Entradas: Dimensiones de la matriz
+	-Salidas: Local agregado
+	-Conceptos usados: Parametro por referencia, condicionales, rand(), enum, ciclos, archivos
+
+Funcion listarLocales: Se encarga de listar los locales que esten guardados dentro de la matriz
+	-Entradas: Dimensiones de la matriz
+	-Salidas: Datos de los locales alojados en la matriz
+	-Conceptos usados: Ciclos, punteros, parametro por referencia
+
+Funcion buscarPorNombre: Busca un local utilizando un nombre ingresado por el usuario
+	-Entradas: Dimensiones de la matriz
+	-Salidas: Informacion del local en caso de ser encontrado
+	-Conceptos usados: Ciclos, condicionales, parametro por referencia
+
+Funcion buscarPorId: Busca los datos de un local usando un identificador suministrado por el usuario
+	-Entradas:Dimensiones de la matriz
+	-Salidas: Informacion del local en caso de ser encontrado
+	-Conceptos usados: Ciclos, condicionales, parametro por referencia
+
+Funcion cambiarNombre: Este se encarga de cambiar el nombre de un local
+	-Entradas: Dimensiones de la matriz
+	-Salidas: Cambia el nombre en caso de encontrar el local deseado
+	-Conceptos usados: Punteros, condicionales, condicionales, parametro por referencia 
+
+Funcion eliminar: Se encarga de cambiar el estado de un local, de ocupado pasa a estar disponible,
+                  de esta manera quedara disponible para cualquier otro negocio que quiera hacer uso
+                  de esta posición
+	-Entradas: Dimensiones de la matriz
+	-Salidas: Cambia el estado del local
+	-Conceptos usados: Ciclos, parametros por referencia, enums, apuntadores, condicionales 
+
+Funcion localesOcupados: Se encarga de recorrer toda la matriz y nos indicara cuantos locales estan siendo ocupados
+    -Entradas: Ninguna
+    -Salidas: Cantidad de locales ocupados
+    -Conceptos utilizados: Ciclos, condicionales
+
+Funcion localesLibres: Se encarga de recorrer la matriz e indicarnos la cantidad de locales que estan disponibles
+                       para ser usados
+     -Entradas: Ninguna
+     -Salidas: Cantidad de locales disponibles y que pueden ser usados
+     -Conceptos utilizados: Ciclos, condicionales
+
+Funcion ordenarPorNumEmpleados: Se encarga de mostrarnos una lista ordenada por la cantidad de empleados en un local
+								de un piso digitado por el usuario
+	 -Entradas: Numero del piso que sera ordenado
+	 -Salidas: Una lista con los valores ordenados
+	 -Conceptos: Ordenamiento selection sort
+
+Funcion ordenarPorVentas: Se encarga de mostrarnos una lista ordenada por la cantidad de ventas semanales en un local
+						  de un piso digitado por el usuario
+	 -Entradas: Numero del piso que sera ordenado
+	 -Salidas: Una lista con los valores ordenados
+	 -Conceptos: Ordenamiento merge sort
+
+Funcion ordenarPorInventario:Se encarga de mostrarnos una lista ordenada por la cantidad de inventario en un local
+						  de un piso digitado por el usuario
+	 -Entradas: Numero del piso que sera ordenado
+	 -Salidas: Una lista con los valores ordenados
+	 -Conceptos: Ordenamiento insertion sort
+
+Funcion ordenarPorEmpleadosTurno:Se encarga de mostrarnos una lista ordenada por la cantidad de empleados que estan
+								 en su turno laboral en un local de un piso digitado por el usuario
+	 -Entradas: Numero del piso que sera ordenado
+	 -Salidas: Una lista con los valores ordenados
+	 -Conceptos: Ordenamiento qucik sort
+
+Funcion guardarCC: Esta se encarga de guardar todos los datos de la matriz en un archivo .dat
+     -Entradas: ninguna
+     -Salidas: Se crea el archivo
+     -Conceptos: Archivos
+
+
