@@ -262,7 +262,7 @@ void eliminarLocal( local_t ** matrizMall, int numPiso, int numLocal ){
    scanf( "%d", &pis );//Aqui pide la ubicacion del local que quiere eliminar
    printf( "Ingresa la ubicacion del local:\n" );
    scanf( "%d", &loc );
-   }while( ( pis > numPiso -1) || ( loc > numLocal -1 ) );//Verifica que los datos ingresados
+   }while( ( pis > numPiso ) || ( loc > numLocal ) );//Verifica que los datos ingresados
                                                           //Esten en la matriz
    pis--;// Se restan para que el programa los entienda como indices
    loc--;
